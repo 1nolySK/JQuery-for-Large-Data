@@ -1,0 +1,75 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+header{
+	z-index: 10;
+	position: fixed;
+	top: 0;
+	margin-bottom: 10px;
+	background-color: #054ec4;
+	color: #fafc85;
+	width: 100%;
+	line-height: 50px;
+
+}
+.title{
+	
+	width: 200px;
+	margin: auto;
+	text-align: center;
+	padding: 10px;
+	font-size: 28px;	
+}
+
+#tabular_body{
+	margin-top: 120px;
+
+}
+@keyframes entry{
+	0%{
+		opacity: 0;
+		background-color: rgba(0,250,0,0);
+	}
+	25%{
+		opacity: 0.3;
+		background-color: rgba(0,250,0,0.5);
+
+	}
+	75%{
+		opacity: 0.8;
+		background-color: rgba(0,250,0,0);
+	}
+	90%{
+		opacity: 1;
+		background-color: none;
+	}
+}
+tbody tr{
+	animation-name: entry;
+	animation-duration: 2s;
+	animation-timing-function: ease-in-out;
+	
+}
+#filter{
+	position: fixed;
+	top: 60px;
+	z-index: 5;
+	width: 100%;
+	padding-top: 10px;
+	background-color: white;
+	border-bottom: 2px solid black;
+}
+input{
+	border: 2px solid black;
+	border-radius: 3px;
+	font-size: 18px;
+	line-height: 30px;
+	transition-duration: .5s;
+	min-width: 50px;
+	text-align: center;
+	margin: 2px;
+}
+input:hover{
+	border: 2px solid aqua;
+}

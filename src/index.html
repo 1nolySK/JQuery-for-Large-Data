@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Big DATA :: AJAX</title>
+	<link rel="stylesheet" type="text/css" href="./css/main.css">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<style type="text/css">
+	table {
+	    
+	    border-collapse: collapse;
+	    border-spacing: 0;
+	    border: 2px solid black;
+	    margin: auto;
+	}
+	#headings{
+		border-color: white;
+	}
+	tbody td, thead th {
+	    
+	    border-right: 1px solid black;
+	}
+	thead{
+		background-color: rgba(0,0,0,0.8);
+		color: white;
+		
+	}
+	tbody {
+	    height: 500px;
+	    overflow-y: auto;
+	}
+	td{
+		overflow: hidden;
+		text-overflow: ellipsis;
+		padding: 5px;
+	}
+
+	thead th { 
+		padding: 5px;
+	    height: 30px;
+	    line-height: 30px;
+	    
+	}
+	
+	
+</style>
+<body>
+
+	<header>
+		<div class="title">BIG DATA</div>
+		<!--div>scrollTop<input type="text" name="" id="scrollop">
+			inner height<input type="text" name="" id="innerheight">
+			outer height<input type="text" name="" id="outerheight">
+			scroll height<input type="text" name="" id="scrollheight"></div-->
+	</header>
+	<div id="filter">
+		LOAD LIMIT <input type="text" name="load" id="load" value=10>
+		TIME<input type="text" name="" id="time" value=0>
+
+	</div>
+	
+	<div id="tabular_body">
+		
+		<table id="dataTable">
+			<thead id="column_name">
+				
+			</thead>
+			<tbody id="dataT">
+				
+			</tbody>
+		</table>
+		
+	</div>
+
+	
+
+</body>
+<script type="text/javascript">
+	var i=0;
+	var head=111111111111;
+
+	$(document).ready(function(){
+
+		var start = new Date().getTime();
+
+		var posting = $.post( "colums_generate.php", { name: 'main', head : head } );
+
+		
+
+		posting.done(function(data) {
+			
+			document.getElementById("time").value=new Date().getTime()-start;
+
+			$("#column_name").append(data);
+			
+			//window.alert(new Date().getTime()-start);
+			
+		});
+		posting.fail(function(xhr, textStatus, errorThrown) {
+	        
+	        window.alert(errorThrown);
+	    }
+        );
+			fetch();
+	})
+
+	$(window).bind('scroll', function() {
+	    
+	    if($(window).scrollTop() >= $("#dataTable").offset().top + $("#dataTable").outerHeight() - window.innerHeight) {
+	      
+			fetch();
+			
+		}
+		
+	});
+
+	function fetch()
+	{
+		var lim=document.getElementById("load").value;
+		//window.alert(lim+" "+i);
+
+		var start = new Date().getTime();
+
+		var posting = $.post( "generator.php", { limit: lim, last: i, head: head } );
+
+			
+		posting.done(function(data) {
+			document.getElementById("time").value=new Date().getTime()-start + "ms";
+			i=i+parseInt(lim);			
+			
+			$("#dataT").append(data);
+
+				
+				
+				
+		});	
+
+		posting.fail(function(xhr, textStatus, errorThrown) {
+		        
+		    window.alert(errorThrown);
+		});
+	}
+	
+
+	
+	
+	
+</script>
+
+
+
+</html>
